@@ -3,23 +3,23 @@ SHELL = /bin/bash
 project_root ?= $(realpath ..)
 project_name ?= $(notdir $(realpath .))
 project_version ?= $(shell cat version.txt)
+
 project_repo ?= ${project_root}/cltl-requirements/leolani
 project_mirror ?= ${project_root}/cltl-requirements/mirror
-# Add required components
-project_dependencies ?= cltl-requirements cltl-component
 
+# Add dependencies for component makefile
+project_dependencies ?= $(addprefix $(project_root)/, \
+		cltl-requirements \
+		cltl-component)
 
-dependencies = $(addprefix $(project_root)/, $(project_dependencies))
+# Add components for parent makefile
+project_components ?= $(addprefix ${project_root}/, \
+		cltl-requirements \
+		cltl-combot \
+		cltl-app \
+		cltl-app-component)
 
-.DEFAULT_GOAL := install
+# Add version control remote
+remote ?= https://github.com/leolani
 
 include $(project_root)/$(project_name)/*.mk
-
-
-clean: py-clean
-
-install: py-install
-
-.PHONY: docker
-docker: py-install
-	DOCKER_BUILDKIT=1 docker build -t cltl/${project_name}:${project_version} .

@@ -1,16 +1,13 @@
 SHELL=/bin/bash
 
-export project_root=$(realpath .)
-project_name = "app"
-project_version = $(shell cat version.txt)
+export project_root ?= $(realpath .)
+project_name ?= "app"
+project_version ?= $(shell cat version.txt)
 
-components = $(addprefix ${project_root}/, \
-		cltl-requirements \
-		cltl-combot \
-		cltl-app \
-		cltl-app-component)
+project_components ?=
 
-dependencies = $(addsuffix /makefile.d, $(components))
+
+dependencies ?= $(addsuffix /makefile.d, $(project_components))
 
 
 target ?= install
@@ -29,10 +26,10 @@ install:
 	$(MAKE) target=install
 
 .PHONY: build
-build: $(components)
+build: $(project_components)
 
-.PHONY: $(components)
-$(components):
+.PHONY: $(project_components)
+$(project_components):
 	$(MAKE) --directory=$@ $(target)
 
 .PHONY: depend
@@ -41,6 +38,5 @@ depend: $(dependencies)
 $(dependencies):
 	$(MAKE) --directory=$(dir $@) depend
 
-include $(dependencies)
 
-include makefile.git.mk
+include $(dependencies)

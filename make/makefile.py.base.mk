@@ -1,3 +1,8 @@
+project_name ?= $(notdir $(realpath .))
+project_repo ?= ${project_root}/cltl-requirements/leolani
+project_mirror ?= ${project_root}/cltl-requirements/mirror
+
+
 .PHONY: py-clean
 py-clean:
 	$(info Clean $(project_name))
