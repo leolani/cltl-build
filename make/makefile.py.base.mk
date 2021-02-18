@@ -6,8 +6,7 @@ project_mirror ?= ${project_root}/cltl-requirements/mirror
 .PHONY: py-clean
 py-clean:
 	$(info Clean $(project_name))
-	@rm -rf venv
-	@rm -rf dist
+	@rm -rf venv dist build *.egg-info
 
 venv:
 	python -m venv venv
