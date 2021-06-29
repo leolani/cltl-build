@@ -4,6 +4,13 @@ project_name ?= $(notdir $(realpath .))
 project_version ?= $(shell cat version.txt)
 
 
+## .
+## -------------------------------------
+## Component related targets
+## -------------------------------------
+## .
+
+
 .DEFAULT_GOAL := install
 
 clean: py-clean
