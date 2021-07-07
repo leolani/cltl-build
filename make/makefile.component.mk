@@ -8,7 +8,7 @@ project_version ?= $(shell cat version.txt)
 
 clean: py-clean
 
-install: py-install
+install: docker
 
 .PHONY: docker
 docker: py-install

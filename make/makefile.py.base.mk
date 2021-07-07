@@ -15,8 +15,7 @@ venv:
 			--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		deactivate
 
-.PHONY: build
-build: dist
+build: py-install
 
 test:
 	source venv/bin/activate; \
@@ -30,6 +29,7 @@ dist: venv
 		python setup.py sdist; \
 		deactivate
 
+.PHONY: dist
 py-install: dist
 	$(info Install $(project_name))
 	@rm -rf $(project_repo)/$(project_name)-{0..9}*.tar.gz
