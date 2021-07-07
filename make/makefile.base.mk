@@ -34,7 +34,7 @@ build: version.txt
 test: build
 
 .PHONY: install
-install: test
+install:
 
 # Explicit rules
 .PHONY: base-clean
