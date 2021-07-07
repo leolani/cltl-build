@@ -12,8 +12,6 @@ project_dependencies ?=
 $(info Project $(project_name), version: $(project_version), in $(project_root))
 
 
-.DEFAULT_GOAL := install
-
 # Implicit rules
 .PHONY: depend
 depend:

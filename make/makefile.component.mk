@@ -4,8 +4,6 @@ project_name ?= $(notdir $(realpath .))
 project_version ?= $(shell cat version.txt)
 
 
-.DEFAULT_GOAL := install
-
 clean: py-clean
 
 install: docker
