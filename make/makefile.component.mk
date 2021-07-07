@@ -9,5 +9,5 @@ clean: py-clean
 install: docker
 
 .PHONY: docker
-docker: py-install
+docker:
 	DOCKER_BUILDKIT=1 docker build -t cltl/${project_name}:${project_version} .
