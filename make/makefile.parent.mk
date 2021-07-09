@@ -10,8 +10,8 @@ project_components ?=
 dependencies ?= $(addsuffix /makefile.d, $(project_components))
 
 
-target ?= install
-.DEFAULT_GOAL := build
+target ?= notimplemented
+.DEFAULT_GOAL := execute
 
 
 $(info Run $(target) for $(project_name), version: $(project_version), in $(project_root))
@@ -21,12 +21,20 @@ $(info Run $(target) for $(project_name), version: $(project_version), in $(proj
 clean:
 	$(MAKE) target=clean
 
+.PHONY: build
+build:
+	$(MAKE) target=install
+
 .PHONY: install
 install:
 	$(MAKE) target=install
 
-.PHONY: build
-build: $(project_components)
+.PHONY: run
+run:
+	$(MAKE) --directory=$(project_name) run
+
+.PHONY: execute
+execute: $(project_components)
 
 .PHONY: $(project_components)
 $(project_components):
