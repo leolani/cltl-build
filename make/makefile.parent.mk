@@ -32,6 +32,10 @@ install:
 run:
 	$(MAKE) --directory=$(project_name) run
 
+.PHONY: stop
+stop:
+	$(MAKE) --directory=$(project_name) stop
+
 .PHONY: execute
 execute: $(project_components)
 
