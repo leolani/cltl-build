@@ -43,8 +43,10 @@ base-clean:
 
 version.txt:
 	$(info Update version of ${project_root}/$(project_name))
-	@cat version.txt | awk -F. -v OFS=. '{$$NF++;print}' > version.increment
-	@mv version.increment version.txt
+# TODO increment version
+#	@cat version.txt | awk -F. -v OFS=. '{$$NF++;print}' | ltr -d '[:space:]' > version.increment
+#	@mv version.increment version.txt
+	touch version.txt
 
 touch-version:
 	touch version.txt
