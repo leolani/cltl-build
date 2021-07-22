@@ -10,4 +10,4 @@ install: docker
 
 .PHONY: docker
 docker:
-	DOCKER_BUILDKIT=1 docker build -t cltl/${project_name}:${project_version} .
+	DOCKER_BUILDKIT=1 docker build -t cltl/${project_name}:${project_version} -t cltl/${project_name}:latest .
