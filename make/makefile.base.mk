@@ -8,8 +8,9 @@ project_mirror ?= ${project_root}/cltl-requirements/mirror
 # Add required components
 project_dependencies ?=
 
+timestamp ?= $(shell date +%s)
 
-$(info Project $(project_name), version: $(project_version), in $(project_root))
+$(info Project $(project_name), version: $(project_version), in $(project_root), timestamp: $(timestamp))
 
 
 # Implicit rules
@@ -43,10 +44,8 @@ base-clean:
 
 version.txt:
 	$(info Update version of ${project_root}/$(project_name))
-# TODO increment version
-#	@cat version.txt | awk -F. -v OFS=. '{$$NF++;print}' | ltr -d '[:space:]' > version.increment
-#	@mv version.increment version.txt
-	touch version.txt
+	@cat version.txt | cut -f 1 -d '+' | xargs -I{} echo {}+$(timestamp) > version.increment
+	@mv version.increment version.txt
 
 touch-version:
 	touch version.txt

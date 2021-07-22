@@ -3,12 +3,20 @@ project_repo ?= ${project_root}/cltl-requirements/leolani
 project_mirror ?= ${project_root}/cltl-requirements/mirror
 
 
+sources = $(shell find $(project_root)/$(project_name)/src/*)
+
+
+version.txt: $(sources)
+
+
 .PHONY: py-clean
 py-clean:
 	$(info Clean $(project_name))
 	@rm -rf venv dist build *.egg-info
 
 venv:
+	$(info Create virutal environment for $(project_name))
+
 	python -m venv venv
 	source venv/bin/activate; \
 		pip install wheel; \
@@ -23,23 +31,20 @@ test:
 		python -m unittest; \
 		deactivate
 
-.PHONY: py-upgrade
-py-upgrade: venv
+dist: $(sources) venv
+	$(info Create distribution for $(project_name))
+
+	# Ensure the timestamp changes
+	rm -rf dist
+
 	source venv/bin/activate; \
 		pip install -r requirements.txt --upgrade --no-index \
 				--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
-		deactivate
-
-.PHONY: dist
-dist: venv py-upgrade
-	$(info Create distribution for $(project_name))
-
-	source venv/bin/activate; \
 		python setup.py sdist; \
 		deactivate
 
 .PHONY: py-install
 py-install: dist
 	$(info Install $(project_name))
-	@rm -rf $(project_repo)/$(project_name)-{0..9}*.tar.gz
+	@rm -rf $(project_repo)/$(project_name)-{0..9}*+{0..9}*.tar.gz
 	@cp dist/*.tar.gz $(project_repo)
