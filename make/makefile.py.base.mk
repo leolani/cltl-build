@@ -19,6 +19,7 @@ venv:
 
 	python -m venv venv
 	source venv/bin/activate; \
+		pip install --upgrade pip; \
 		pip install wheel; \
 		pip install -r requirements.txt --no-index \
 			--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
