@@ -1,7 +1,7 @@
 SHELL = /bin/bash
 
 project_name ?= $(notdir $(realpath .))
-project_version ?= $(shell cat version.txt)
+project_version ?= $(shell cat VERSION)
 
 
 clean: py-clean

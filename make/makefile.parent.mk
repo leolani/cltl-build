@@ -2,7 +2,7 @@ SHELL=/bin/bash
 
 export project_root ?= $(realpath .)
 project_name ?= "app"
-project_version ?= $(shell cat version.txt)
+project_version ?= $(shell cat VERSION)
 
 project_components ?=
 

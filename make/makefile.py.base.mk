@@ -6,7 +6,7 @@ project_mirror ?= ${project_root}/cltl-requirements/mirror
 sources = $(shell find $(project_root)/$(project_name)/src/*)
 
 
-version.txt: $(sources)
+VERSION: $(sources)
 
 
 .PHONY: py-clean

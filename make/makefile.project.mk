@@ -2,7 +2,7 @@ SHELL = /bin/bash
 
 project_root ?= $(realpath ..)
 project_name ?= $(notdir $(realpath .))
-project_version ?= $(shell cat version.txt)
+project_version ?= $(shell cat VERSION)
 
 project_repo ?= ${project_root}/cltl-requirements/leolani
 project_mirror ?= ${project_root}/cltl-requirements/mirror

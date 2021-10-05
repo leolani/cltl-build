@@ -2,7 +2,7 @@ SHELL=/bin/bash
 
 project_root ?= $(realpath ..)
 project_name ?= $(notdir $(realpath .))
-project_version ?= $(shell cat version.txt)
+project_version ?= $(shell cat VERSION)
 project_repo ?= ${project_root}/cltl-requirements/leolani
 project_mirror ?= ${project_root}/cltl-requirements/mirror
 # Add required components
@@ -24,12 +24,12 @@ clean: base-clean
 touch-version:
 
 .PHONY: version
-version: version.txt
+version: VERSION
 
-version.txt: $(addsuffix /version.txt, $(project_dependencies))
+VERSION: $(addsuffix /VERSION, $(project_dependencies))
 
 .PHONY: version
-build: version.txt
+build: VERSION
 
 .PHONY: test
 test: build
@@ -42,13 +42,13 @@ install:
 base-clean:
 	@rm -rf makefile.d
 
-version.txt:
+VERSION:
 	$(info Update version of ${project_root}/$(project_name))
-	@cat version.txt | cut -f 1 -d '+' | xargs -I{} echo {}+$(timestamp) > version.increment
-	@mv version.increment version.txt
+	@cat VERSION | cut -f 1 -d '+' | xargs -I{} echo {}+$(timestamp) > version.increment
+	@mv version.increment VERSION
 
 touch-version:
-	touch version.txt
+	touch VERSION
 
 depend:
 ifdef project_dependencies
