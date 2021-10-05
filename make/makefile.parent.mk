@@ -4,6 +4,10 @@ export project_root ?= $(realpath .)
 project_name ?= "app"
 project_version ?= $(shell cat VERSION)
 
+project_repo ?= ${project_root}/cltl-requirements/leolani
+project_mirror ?= ${project_root}/cltl-requirements/mirror
+
+
 project_components ?=
 
 
