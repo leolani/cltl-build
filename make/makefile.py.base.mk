@@ -14,7 +14,7 @@ py-clean:
 	$(info Clean $(project_name))
 	@rm -rf venv dist build *.egg-info
 
-venv:
+venv: requirements.txt setup.py
 	$(info Create virutal environment for $(project_name))
 
 	python -m venv venv
