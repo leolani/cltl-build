@@ -4,6 +4,7 @@ project_mirror ?= ${project_root}/cltl-requirements/mirror
 
 
 sources = $(shell find $(project_root)/$(project_name)/src/*)
+artifact_name ?= $(subst -,.,$(project_name))
 
 
 VERSION: $(sources)
@@ -14,7 +15,7 @@ py-clean:
 	$(info Clean $(project_name))
 	@rm -rf venv dist build *.egg-info
 
-venv: requirements.txt setup.py
+venv: requirements.txt setup.py VERSION
 	$(info Create virutal environment for $(project_name))
 
 	python -m venv venv
@@ -42,10 +43,11 @@ dist: $(sources) venv
 		pip install -r requirements.txt --upgrade --no-index \
 				--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		python setup.py sdist; \
+		rm -rf src/$(artifact_name).egg-info; \
 		deactivate
 
 .PHONY: py-install
 py-install: dist
 	$(info Install $(project_name))
-	@rm -rf $(project_repo)/$(project_name)-{0..9}*+{0..9}*.tar.gz
+	@rm -rf $(project_repo)/$(artifact_name)-{0..9}*+{0..9}*.tar.gz
 	@cp dist/*.tar.gz $(project_repo)
