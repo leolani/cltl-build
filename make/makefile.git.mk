@@ -7,6 +7,11 @@ git_local ?=
 git_remote ?= https://github.com/leolani
 
 
+.PHONY: git-status
+git-status:
+	git submodule foreach 'git status'
+
+
 .PHONY: git-update
 git-update:
 	git submodule update --remote --force --recursive
