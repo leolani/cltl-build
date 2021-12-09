@@ -3,7 +3,7 @@ project_repo ?= ${project_root}/cltl-requirements/leolani
 project_mirror ?= ${project_root}/cltl-requirements/mirror
 
 
-sources = $(shell find $(project_root)/$(project_name)/src/*)
+sources ?= $(shell find $(project_root)/$(project_name)/src/*)
 artifact_name ?= $(subst cltl-,cltl.,$(project_name))
 
 
