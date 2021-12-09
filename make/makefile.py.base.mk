@@ -4,7 +4,7 @@ project_mirror ?= ${project_root}/cltl-requirements/mirror
 
 
 sources = $(shell find $(project_root)/$(project_name)/src/*)
-artifact_name ?= $(subst -,.,$(project_name))
+artifact_name ?= $(subst cltl-,cltl.,$(project_name))
 
 
 VERSION: $(sources)
@@ -43,7 +43,7 @@ dist: $(sources) venv
 		pip install -r requirements.txt --upgrade --no-index \
 				--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		python setup.py sdist; \
-		rm -rf src/$(artifact_name).egg-info; \
+		rm -rf src/*.egg-info; \
 		deactivate
 
 .PHONY: py-install
