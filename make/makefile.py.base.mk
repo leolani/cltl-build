@@ -22,7 +22,7 @@ venv: requirements.txt setup.py VERSION
 	source venv/bin/activate; \
 		pip install --upgrade pip; \
 		pip install wheel; \
-		pip install -r requirements.txt --no-index \
+		pip install -r requirements.txt --upgrade --no-index \
 			--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		deactivate
 
@@ -39,6 +39,7 @@ dist: $(sources) venv
 	# Ensure the timestamp changes
 	rm -rf dist
 
+	# TODO Is the pip install needed?
 	source venv/bin/activate; \
 		pip install -r requirements.txt --upgrade --no-index \
 				--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
