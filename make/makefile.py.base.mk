@@ -22,8 +22,8 @@ venv: requirements.txt setup.py VERSION
 	source venv/bin/activate; \
 		pip install --upgrade pip; \
 		pip install wheel; \
-		pip install -r requirements.txt --upgrade --no-index \
-			--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
+		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre \
+			 --no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		deactivate
 
 build: py-install
@@ -41,8 +41,8 @@ dist: $(sources) venv
 
 	# TODO Is the pip install needed?
 	source venv/bin/activate; \
-		pip install -r requirements.txt --upgrade --no-index \
-				--find-links="$(project_mirror)" --find-links="$(project_repo)"; \
+		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre \
+				--no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		python setup.py sdist; \
 		rm -rf src/*.egg-info; \
 		deactivate
