@@ -1,30 +1,21 @@
 SHELL=/bin/bash
 
-project_components ?=
-
-
-git_local ?=
-git_remote ?= https://github.com/leolani
-
 
 .PHONY: git-status
 git-status:
 	git submodule foreach 'git status'
 
 
+.PHONY: git-reset-version
+git-reset-version:
+	git submodule foreach 'git checkout -- VERSION'
+
+
 .PHONY: git-update
-git-update:
-	git submodule update --remote --force --recursive
+git-update: git-reset-version
+	git submodule update --remote --recursive
 
 
-.PHONY: git-local
-git-local:
-	@for component in $(notdir $(project_components)); do \
-		git submodule set-url -- $$component $(git_local)/$$component; \
-	done
-
-.PHONY: git-remote
-git-remote:
-	@for component in $(notdir $(project_components)); do \
-		git submodule set-url -- $$component $(git_remote)/$$component; \
-	done
+.PHONY: git-pull
+git-pull: git-reset-version
+	git pull --recurse-submodules --ff-only
