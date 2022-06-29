@@ -8,7 +8,7 @@ git-status:
 
 .PHONY: git-reset-version
 git-reset-version:
-	git submodule foreach 'git checkout -- VERSION'
+	-git submodule foreach 'git checkout -- VERSION'
 
 
 .PHONY: git-update
