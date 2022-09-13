@@ -17,6 +17,7 @@ py-clean:
 	@rm -rf $(project_repo)/$(artifact_name)-{0..9}*+{0..9}*.tar.gz
 	@pip cache remove $(artifact_name)
 
+
 venv: requirements.txt setup.py VERSION
 	$(info Create virutal environment for $(project_name))
 
@@ -29,8 +30,16 @@ venv: requirements.txt setup.py VERSION
 		deactivate
 	touch venv
 
-.PHONY: build
+
+release_version = $(shell grep -v dev VERSION)
+released = $(shell ls $(project_repo)/$(artifact_name)-$(release_version).tar.gz)
+ifeq (,$(and $(release_version), $(released)))
 build: py-install
+else
+build:
+    $(info Skip build for release $(release_version))
+endif
+
 
 test:
 	source venv/bin/activate; \
