@@ -36,7 +36,7 @@ released = $(shell ls $(project_repo)/$(artifact_name)-$(release_version).tar.gz
 ifeq (,$(and $(release_version), $(released)))
 build: py-install
 else
-build:
+build: venv
     $(info Skip build for release $(release_version))
 endif
 
