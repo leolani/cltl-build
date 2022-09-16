@@ -44,8 +44,8 @@ base-clean:
 
 VERSION:
 	$(info Update version of ${project_root}/$(project_name))
-	@cat VERSION | cut -f 1 -d '+' | xargs -I{} echo {}+$(timestamp) > version.increment
-	@mv version.increment VERSION
+	@cat VERSION | grep dev | cut -f 1 -d '+' | xargs -I{} echo {}+$(timestamp) > version.increment
+	@if [ -s version.increment ]; then mv version.increment VERSION; fi
 
 touch-version:
 	touch VERSION
