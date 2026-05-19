@@ -11,4 +11,8 @@ install: docker
 
 .PHONY: docker
 docker:
-	DOCKER_BUILDKIT=1 docker build -t cltl/${project_name}:${docker_version} -t cltl/${project_name}:latest .
+	DOCKER_BUILDKIT=1 docker build \
+		--build-context leolani=${project_repo} \
+		-t cltl/${project_name}:${docker_version} \
+		-t cltl/${project_name}:latest \
+		.
