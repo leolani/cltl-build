@@ -3,6 +3,7 @@ SHELL = /bin/bash
 project_name ?= $(notdir $(realpath .))
 project_version ?= $(shell cat VERSION)
 docker_version ?= $(shell cat VERSION | tr '+!' '--')
+docker_base ?= cltl/cltl-base:latest
 
 
 clean: py-clean
@@ -13,6 +14,7 @@ install: docker
 docker:
 	DOCKER_BUILDKIT=1 docker build \
 		--build-context leolani=${project_repo} \
+		--build-arg base_image=${docker_base} \
 		-t cltl/${project_name}:${docker_version} \
 		-t cltl/${project_name}:latest \
 		.
