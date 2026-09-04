@@ -32,6 +32,10 @@ build:
 install:
 	$(MAKE) target=install
 
+.PHONY: test
+test:
+	$(MAKE) target=test
+
 .PHONY: run
 run:
 	$(MAKE) --directory=$(project_name) run
