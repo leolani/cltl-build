@@ -18,16 +18,20 @@ py-clean:
 	@pip cache remove $(artifact_name)
 
 
+# A failed install must not leave a venv behind. `python -m venv` creates the
+# directory before pip runs, and make treats an existing directory as an
+# up-to-date target, so a partial venv makes every later `make build` report
+# "Nothing to be done" over an unusable environment.
 venv: requirements.txt setup.py VERSION
 	$(info Create virutal environment for $(project_name))
 
 	python -m venv venv
-	source venv/bin/activate; \
-		pip install --upgrade pip; \
-		pip install wheel; \
+	{ source venv/bin/activate && \
+		pip install --upgrade pip && \
+		pip install wheel && \
 		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre \
 			 --no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
-		deactivate
+	} || { rm -rf venv; exit 1; }
 	touch venv
 
 
@@ -42,9 +46,8 @@ endif
 
 
 test:
-	source venv/bin/activate; \
-		python -m unittest; \
-		deactivate
+	source venv/bin/activate && \
+		python -m unittest
 
 dist: $(sources) venv
 	$(info Create distribution for $(project_name))
