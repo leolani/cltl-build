@@ -15,6 +15,7 @@ py-clean:
 	$(info Clean $(project_name))
 	@rm -rf venv dist build *.egg-info
 	@rm -rf $(project_repo)/$(artifact_name)-{0..9}*+{0..9}*.tar.gz
+	@rm -rf $(project_repo)/$(subst .,_,$(subst -,_,$(project_name)))-{0..9}*+{0..9}*.tar.gz
 	@pip cache remove $(artifact_name)
 
 
@@ -67,6 +68,7 @@ dist: $(sources) venv
 py-install: dist
 	$(info Install $(project_name))
 	@rm -rf $(project_repo)/$(artifact_name)-{0..9}*+{0..9}*.tar.gz
+	@rm -rf $(project_repo)/$(subst .,_,$(subst -,_,$(project_name)))-{0..9}*+{0..9}*.tar.gz
 	@cp dist/*.tar.gz $(project_repo)
 
 
